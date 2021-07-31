@@ -7,6 +7,15 @@ public class Pago {
     private Cliente cliente;
     private Instant fecha;
     private FormaPago forma;
+    private Pedido pedido;
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
 
     public Integer getId() {
         return id;
