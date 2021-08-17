@@ -2,7 +2,7 @@ package com.dan.dot.pagos.domain;
 
 import java.time.Instant;
 
-public class Cheque extends FormaPago {
+public class Cheque {
     private Integer numero;
     private Instant fechaCobro; //TODO: Fecha nula al crear -> Cheque corriente. Fecha futura -> Cheque diferido
     private String banco;

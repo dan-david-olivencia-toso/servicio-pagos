@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Table(name = "pago")
 public class Pago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,7 +19,9 @@ public class Pago {
     private Cliente cliente;
     private Date fecha;
     //TODO: Agregar de nuevo las propiedades faltantes
-//    private FormaPago forma;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_tipo", referencedColumnName = "id")
+    private FormaPago forma;
 //    private Pedido pedido;
 
 //    public Pedido getPedido() {
@@ -53,11 +56,11 @@ public class Pago {
         this.fecha = fecha;
     }
 
-//    public FormaPago getForma() {
-//        return forma;
-//    }
-//
-//    public void setForma(FormaPago forma) {
-//        this.forma = forma;
-//    }
+    public FormaPago getForma() {
+        return forma;
+    }
+
+    public void setForma(FormaPago forma) {
+        this.forma = forma;
+    }
 }

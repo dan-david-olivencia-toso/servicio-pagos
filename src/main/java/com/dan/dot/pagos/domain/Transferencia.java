@@ -1,6 +1,6 @@
 package com.dan.dot.pagos.domain;
 
-public class Transferencia extends FormaPago {
+public class Transferencia {
     private String cbuOrigen;
     private String cbuDestino;
     private Long codigoTransferencia;
