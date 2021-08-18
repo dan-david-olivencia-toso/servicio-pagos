@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 //Notación para indicar que es un servicio
 @Service
@@ -13,14 +14,19 @@ import java.util.List;
 @Transactional
 public interface PagoService {
 
-    Pago guardarPago(Pago p) throws RecursoNoEncontradoException;
+    Optional<Pago> buscarPagoPorId(Integer id) throws RecursoNoEncontradoException;
+    List<Pago> estadoCuentaCorriente(Integer idCliente)  throws RecursoNoEncontradoException;
 
-    List<Pago> estadoCuentaCorriente(Integer idCliente);
+    Pago guardarPago(Pago p) throws RecursoNoPersistidoException;
 
-    class RecursoNoEncontradoException extends Exception {
-        public RecursoNoEncontradoException(String errorMessage, Integer id) {
-            super(errorMessage+id);
+    public static class RecursoNoEncontradoException extends Exception {
+        public RecursoNoEncontradoException(String errorMessage) {
+            super(errorMessage);
         }
+    }
+
+    public static class RecursoNoPersistidoException extends Exception {
+        public RecursoNoPersistidoException(String errorMessage) { super(errorMessage); }
     }
 
 }

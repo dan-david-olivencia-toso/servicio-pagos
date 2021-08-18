@@ -23,40 +23,14 @@ public class PagoRest {
     @Autowired
     PagoService pagoService;
 
-    @PostMapping(path = "/cheque")
-    public ResponseEntity<?> crearPagoCheque(@RequestBody Cheque pago){
-        Cheque p = null;
+    @PostMapping
+    public ResponseEntity<?> crearPago(@RequestBody Pago pago){
+        Pago p = null;
 
         try {
-//            p = this.pagoService.guardarPago(pago);
-        } catch (Exception e1) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e1.getMessage());
-        }
-
-        return ResponseEntity.ok(p);
-    }
-
-    @PostMapping(path = "/transferencia")
-    public ResponseEntity<?> crearPagoTransferencia(@RequestBody Transferencia pago){
-        Transferencia p = null;
-
-        try {
-//            p = this.pagoService.guardarPago(pago);
-        } catch (Exception e1) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e1.getMessage());
-        }
-
-        return ResponseEntity.ok(p);
-    }
-
-    @PostMapping(path = "/efectivo")
-    public ResponseEntity<?> crearPagoEfectivo(@RequestBody Efectivo pago){
-        Efectivo p = null;
-
-        try {
-//            p = this.pagoService.guardarPagoEfectivo(pago);
-        } catch (Exception e1) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e1.getMessage());
+            p = this.pagoService.guardarPago(pago);
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
 
         return ResponseEntity.ok(p);
@@ -66,12 +40,12 @@ public class PagoRest {
     @ApiOperation(value = "Busca un pago por id")
     public ResponseEntity<?> pagoPorId(@PathVariable Integer id){
         Optional<Pago> p = null;
-//        try{
-//            p = this.pagoService.buscarPagoPorId(id);
-//        }
-//        catch(Exception ex){
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(p.getMessage());
-//        }
+        try{
+            p = this.pagoService.buscarPagoPorId(id);
+        }
+        catch(Exception ex){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
         return ResponseEntity.ok(p);
     }
 
@@ -88,7 +62,5 @@ public class PagoRest {
 
         return ResponseEntity.ok(pagosCliente);
     }
-
-
 
 }
