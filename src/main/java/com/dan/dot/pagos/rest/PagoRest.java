@@ -1,6 +1,9 @@
 package com.dan.dot.pagos.rest;
 
+import com.dan.dot.pagos.domain.Cheque;
+import com.dan.dot.pagos.domain.Efectivo;
 import com.dan.dot.pagos.domain.Pago;
+import com.dan.dot.pagos.domain.Transferencia;
 import com.dan.dot.pagos.service.PagoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/pago")
@@ -19,12 +23,12 @@ public class PagoRest {
     @Autowired
     PagoService pagoService;
 
-    @PostMapping
-    public ResponseEntity<?> crearPago(@RequestBody Pago pago){
-        Pago p = null;
+    @PostMapping(path = "/cheque")
+    public ResponseEntity<?> crearPagoCheque(@RequestBody Cheque pago){
+        Cheque p = null;
 
         try {
-            p = this.pagoService.guardarPago(pago);
+//            p = this.pagoService.guardarPago(pago);
         } catch (Exception e1) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e1.getMessage());
         }
@@ -32,10 +36,48 @@ public class PagoRest {
         return ResponseEntity.ok(p);
     }
 
-    @GetMapping(path = "/{idCliente}/pagos")
+    @PostMapping(path = "/transferencia")
+    public ResponseEntity<?> crearPagoTransferencia(@RequestBody Transferencia pago){
+        Transferencia p = null;
+
+        try {
+//            p = this.pagoService.guardarPago(pago);
+        } catch (Exception e1) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e1.getMessage());
+        }
+
+        return ResponseEntity.ok(p);
+    }
+
+    @PostMapping(path = "/efectivo")
+    public ResponseEntity<?> crearPagoEfectivo(@RequestBody Efectivo pago){
+        Efectivo p = null;
+
+        try {
+//            p = this.pagoService.guardarPagoEfectivo(pago);
+        } catch (Exception e1) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e1.getMessage());
+        }
+
+        return ResponseEntity.ok(p);
+    }
+
+    @GetMapping(path = "/{id}")
+    @ApiOperation(value = "Busca un pago por id")
+    public ResponseEntity<?> pagoPorId(@PathVariable Integer id){
+        Optional<Pago> p = null;
+//        try{
+//            p = this.pagoService.buscarPagoPorId(id);
+//        }
+//        catch(Exception ex){
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(p.getMessage());
+//        }
+        return ResponseEntity.ok(p);
+    }
+
+    @GetMapping(path = "/pagos/{idCliente}")
     @ApiOperation(value = "Estado de cuenta corriente de un cliente con un detalle de Pagos")
     public ResponseEntity<?> estadoCuentaCorriente(@PathVariable Integer idCliente) {
-
         List<Pago> pagosCliente = null;
 
         try {
@@ -46,5 +88,7 @@ public class PagoRest {
 
         return ResponseEntity.ok(pagosCliente);
     }
+
+
 
 }

@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-@Table(name = "tipo_pago")
+@Table(name = "forma_pago")
 public class FormaPago {
 
     public Integer getId() {
