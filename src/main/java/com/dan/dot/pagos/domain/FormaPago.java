@@ -1,10 +1,9 @@
 package com.dan.dot.pagos.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "tipo_pago")
 public class FormaPago {
 
@@ -25,6 +24,7 @@ public class FormaPago {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String detalle;
 
@@ -32,7 +32,7 @@ public class FormaPago {
     public String toString() {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("Id: ").append(this.id).append("\n");
+        sb.append("Id Pago: ").append(this.id).append("\n");
         sb.append("Detalle: ").append(this.detalle).append("\n");
 
         return sb.toString();
