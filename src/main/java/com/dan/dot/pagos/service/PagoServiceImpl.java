@@ -8,13 +8,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class PagoServiceImpl implements PagoService {
 
-    @Autowired //Configuration necesaria para guardar en memoria
+    @Autowired
     PagoRepository pagoRepository;
+
+    @Override
+    public List<Pago> listarTodos(){
+        return this.pagoRepository.findAll();
+    }
 
     @Override
     public Optional<Pago> buscarPagoPorId(Integer id) throws RecursoNoEncontradoException{
@@ -26,7 +30,7 @@ public class PagoServiceImpl implements PagoService {
     }
 
     @Override
-    public Pago guardarPago(Pago p) throws RecursoNoPersistidoException {
+    public Pago guardar(Pago p) throws RecursoNoPersistidoException {
         Pago pagoGuardado = null;
 
         if(!pagoRepository.existsById(p.getCliente().getId())){
@@ -44,16 +48,25 @@ public class PagoServiceImpl implements PagoService {
     }
 
     @Override
-    public List<Pago> estadoCuentaCorriente(Integer idCliente) {
-        // TODO: Cambiar implementación de método
-        List<Pago> lp = (List<Pago>) listarPagos()
-                .stream()
-                .filter(unPago -> unPago.getCliente().getId().equals(idCliente))
-                .collect(Collectors.toList());
-
-        return lp;
+    public List<Pago> buscarPorClienteId(Integer clienteId) {
+        return pagoRepository.findPagosByClienteId(clienteId);
     }
 
+    @Override
+    public Pago borrar(Integer id) throws RecursoNoEncontradoException {
+        Pago p;
+
+        if(pagoRepository.existsById(id)){
+            p = pagoRepository.findPagoById(id).get();
+            p.setHabilitado(false);
+            pagoRepository.save(p);
+        }
+        else{
+            throw new RecursoNoEncontradoException("Pago con id " + id + " no encontrado.");
+        }
+
+        return p;
+    }
 
     private List<Pago> listarPagos() {
         return Lists.newArrayList(pagoRepository.findAll().iterator());

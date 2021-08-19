@@ -15,9 +15,10 @@ import java.util.Optional;
 public interface PagoService {
 
     Optional<Pago> buscarPagoPorId(Integer id) throws RecursoNoEncontradoException;
-    List<Pago> estadoCuentaCorriente(Integer idCliente)  throws RecursoNoEncontradoException;
-
-    Pago guardarPago(Pago p) throws RecursoNoPersistidoException;
+    List<Pago> listarTodos();
+    List<Pago> buscarPorClienteId(Integer idCliente)  throws RecursoNoEncontradoException;
+    Pago guardar(Pago p) throws RecursoNoPersistidoException;
+    Pago borrar(Integer id) throws RecursoNoEncontradoException;
 
     public static class RecursoNoEncontradoException extends Exception {
         public RecursoNoEncontradoException(String errorMessage) {

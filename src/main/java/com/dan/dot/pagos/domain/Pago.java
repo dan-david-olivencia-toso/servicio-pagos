@@ -18,19 +18,13 @@ public class Pago {
     @JsonBackReference
     private Cliente cliente;
     private Date fecha;
-    //TODO: Agregar de nuevo las propiedades faltantes
+    private Double monto;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_tipo", referencedColumnName = "id")
     private FormaPago forma;
-//    private Pedido pedido;
 
-//    public Pedido getPedido() {
-//        return pedido;
-//    }
-//
-//    public void setPedido(Pedido pedido) {
-//        this.pedido = pedido;
-//    }
+    private Boolean habilitado;
 
     public Integer getId() {
         return id;
@@ -56,6 +50,10 @@ public class Pago {
         this.fecha = fecha;
     }
 
+    public Double getMonto() { return monto; }
+
+    public void setMonto(Double monto) { this.monto = monto; }
+
     public FormaPago getForma() {
         return forma;
     }
@@ -63,4 +61,9 @@ public class Pago {
     public void setForma(FormaPago forma) {
         this.forma = forma;
     }
+
+    public Boolean getHabilitado() { return habilitado; }
+
+    public void setHabilitado(Boolean habilitado) { this.habilitado = habilitado; }
+
 }
