@@ -2,7 +2,6 @@ package com.dan.dot.pagos.service;
 
 import com.dan.dot.pagos.domain.Pago;
 import com.dan.dot.pagos.repository.PagoRepository;
-import org.apache.commons.compress.utils.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -66,10 +65,6 @@ public class PagoServiceImpl implements PagoService {
         }
 
         return p;
-    }
-
-    private List<Pago> listarPagos() {
-        return Lists.newArrayList(pagoRepository.findAll().iterator());
     }
 
 }
