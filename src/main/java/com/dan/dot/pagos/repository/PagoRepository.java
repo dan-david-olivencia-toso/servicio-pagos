@@ -1,16 +1,12 @@
 package com.dan.dot.pagos.repository;
-import frsf.isi.dan.InMemoryRepository;
 import com.dan.dot.pagos.domain.Pago;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public class PagoRepository extends InMemoryRepository<Pago>{
+import java.util.List;
+import java.util.Optional;
 
-    @Override
-    public Integer getId(Pago pago) {
-        return pago.getId();
-    }
-
-    @Override
-    public void setId(Pago pago, Integer id) {
-        pago.setId(id);
-    }
+public interface PagoRepository extends JpaRepository<Pago, Integer> {
+    Optional<Pago> findPagoById(Integer id);
+    List<Pago> findPagosByClienteId(Integer id);
+    Pago save(Pago pago);
 }
