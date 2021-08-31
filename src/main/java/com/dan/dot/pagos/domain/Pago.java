@@ -20,8 +20,8 @@ public class Pago {
     private Date fecha;
     private Double monto;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "id_tipo", referencedColumnName = "id")
+    @OneToOne(optional = false, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "id_forma_pago", referencedColumnName = "id")
     private FormaPago forma;
 
     private Boolean habilitado;
