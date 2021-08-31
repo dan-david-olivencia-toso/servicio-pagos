@@ -1,6 +1,7 @@
 package com.dan.dot.pagos.service;
 
 import com.dan.dot.pagos.domain.Pago;
+import com.dan.dot.pagos.dto.Cliente;
 import com.dan.dot.pagos.repository.PagoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,13 +32,14 @@ public class PagoServiceImpl implements PagoService {
     @Override
     public Pago guardar(Pago p) throws RecursoNoPersistidoException {
         Pago pagoGuardado = null;
+        Cliente cliente = p.getCliente();
 
-        if(!pagoRepository.existsById(p.getCliente().getId())){
+        if(cliente == null || cliente.getId() == null){
             throw new RecursoNoPersistidoException("Pago no persistido en base de datos. Cliente con ID no encontrado: " + p.getCliente().getId());
         }
 
         try{
-            pagoRepository.save(p);
+            pagoGuardado = pagoRepository.save(p);
         }
         catch(Exception ex){
             throw new RecursoNoPersistidoException("Pago no persistido en base de datos: " + ex);
