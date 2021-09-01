@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin
 @RestController
 @RequestMapping("/api/pago")
 @Api(value = "PagoRest", description = "Permite gestionar la información relacionada a los pagos de los clientes")
